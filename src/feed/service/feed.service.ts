@@ -32,4 +32,12 @@ export class FeedService {
   createPost(createFeedDto: createFeedDto): Promise<Feed> {
     return this.feedRepository.createPost(createFeedDto);
   }
+
+  // update post
+  async updatePost(id: string, body: string): Promise<Feed> {
+    const post = await this.getPostById(id);
+    post.body = body;
+    await this.feedRepository.save(post);
+    return post;
+  }
 }

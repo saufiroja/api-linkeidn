@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { createFeedDto } from '../dto/create.feed.dto';
 import { Feed } from '../models/feed.entity';
 import { FeedService } from '../service/feed.service';
@@ -23,5 +23,11 @@ export class FeedController {
   @Post()
   createPost(@Body() createfeedDto: createFeedDto): Promise<Feed> {
     return this.feedService.createPost(createfeedDto);
+  }
+
+  // update post
+  @Put(':id')
+  updatePost(@Param('id') id: string, @Body() body: string): Promise<Feed> {
+    return this.feedService.updatePost(id, body);
   }
 }
