@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createFeedDto } from '../dto/create.feed.dto';
 import { Feed } from '../models/feed.entity';
+import { FeedInterface } from '../models/feed.interface';
 
 import { FeedRepository } from '../repository/feed.repository';
 
@@ -28,16 +29,23 @@ export class FeedService {
     return postById;
   }
 
-  // create feed
+  // create post
   createPost(createFeedDto: createFeedDto): Promise<Feed> {
     return this.feedRepository.createPost(createFeedDto);
   }
 
   // update post
-  async updatePost(id: string, body: string): Promise<Feed> {
+  async updatePost(id: string, feedInterface: FeedInterface): Promise<Feed> {
+    const { body } = feedInterface;
     const post = await this.getPostById(id);
     post.body = body;
     await this.feedRepository.save(post);
     return post;
+  }
+
+  // delete post
+  async deletePost(id: string): Promise<void> {
+    const result = await this.feedRepository.delete(id);
+    console.log(result);
   }
 }

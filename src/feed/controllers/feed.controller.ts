@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { createFeedDto } from '../dto/create.feed.dto';
 import { Feed } from '../models/feed.entity';
+import { FeedInterface } from '../models/feed.interface';
 import { FeedService } from '../service/feed.service';
 
 @Controller('feed')
@@ -27,7 +36,16 @@ export class FeedController {
 
   // update post
   @Put(':id')
-  updatePost(@Param('id') id: string, @Body() body: string): Promise<Feed> {
+  updatePost(
+    @Param('id') id: string,
+    @Body() body: FeedInterface,
+  ): Promise<Feed> {
     return this.feedService.updatePost(id, body);
+  }
+
+  // delete post
+  @Delete(':id')
+  deletePost(@Param('id') id: string): Promise<void> {
+    return this.feedService.deletePost(id);
   }
 }
