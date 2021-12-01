@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { createFeedDto } from '../dto/create.feed.dto';
 import { Feed } from '../models/feed.entity';
 import { FeedInterface } from '../models/feed.interface';
-
 import { FeedRepository } from '../repository/feed.repository';
 
 @Injectable()

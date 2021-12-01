@@ -1,7 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 
 import { createFeedDto } from '../dto/create.feed.dto';
-
 import { Feed } from '../models/feed.entity';
 
 @EntityRepository(Feed)
