@@ -46,6 +46,8 @@ export class FeedService {
   // delete post
   async deletePost(id: string): Promise<void> {
     const result = await this.feedRepository.delete(id);
-    console.log(result);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Feed with ID "${id}" not found`);
+    }
   }
 }
