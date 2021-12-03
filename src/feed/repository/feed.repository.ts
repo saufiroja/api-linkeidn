@@ -11,18 +11,18 @@ export class FeedRepository extends Repository<Feed> {
   async getFeed(filterDto: GetFeedFilterDto, user: User): Promise<Feed[]> {
     const { search } = filterDto;
 
-    const query = await this.createQueryBuilder('task');
+    const query = await this.createQueryBuilder('feed');
     query.where({ user });
 
     if (search) {
       query.andWhere(
-        '(LOWER(task.title) LIKE LOWER(:search) OR LOWER(task.description) LIKE LOWER(:search))',
+        '(LOWER(feed.title) LIKE LOWER(:search) OR LOWER(feed.description) LIKE LOWER(:search))',
         { search: `%${search}%` },
       );
     }
 
-    const tasks = await query.getMany();
-    return tasks;
+    const feeds = await query.getMany();
+    return feeds;
   }
 
   // create post
