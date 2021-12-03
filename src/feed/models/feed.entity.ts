@@ -1,7 +1,9 @@
+import { User } from 'src/auth/models/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -15,4 +17,7 @@ export class Feed {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @ManyToOne((_type) => User, (user) => user.feed, { eager: false })
+  user: User;
 }

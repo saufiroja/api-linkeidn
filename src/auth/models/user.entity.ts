@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Feed } from 'src/feed/models/feed.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Role } from './role.enum';
 
@@ -18,4 +20,8 @@ export class User {
 
   @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: Role;
+
+  @OneToMany((_type) => Feed, (task) => task.user, { eager: true })
+  @Exclude({ toPlainOnly: true })
+  feed: Feed[];
 }
